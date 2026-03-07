@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate |AllWise Foundation</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .donation-amount-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .amount-btn {
+            background-color: var(--bg-alt);
+            border: 2px solid var(--border-color);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            color: var(--secondary-color);
+            text-align: center;
+        }
+
+        .amount-btn:hover {
+            border-color: var(--primary-light);
+        }
+
+        .amount-btn.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .donation-type {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .type-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .type-btn.active {
+            color: var(--primary-color);
+            background-color: rgba(230, 57, 70, 0.1);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 12px;
+            background-color: var(--border-color);
+            border-radius: var(--radius-pill);
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 75%;
+            border-radius: var(--radius-pill);
+        }
+    </style>
+</head>
+
+<body class="bg-alt">
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><i data-lucide="heart-handshake"></i></span>
+                AllWise<span class="logo-highlight">Foundation</span>
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <i data-lucide="menu"></i>
+            </button>
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="programs.html" class="nav-link">Programs</a></li>
+                    <li><a href="get-involved.html" class="nav-link">Get Involved</a></li>
+                    <li><a href="blog.html" class="nav-link">News</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="donate.html" class="btn btn-primary btn-donate active">Donate Now</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="donate-section" style="padding: 4rem 0;">
+            <div class="container">
+                <div class="about-grid" style="align-items: flex-start; gap: 3rem;">
+                    <!-- Donation Info -->
+                    <div class="animate-on-scroll">
+                        <span class="subtitle text-primary">Make an Impact</span>
+                        <h2>Your Generosity Changes Lives</h2>
+                        <p>The Hope Foundation relies on the kindness of donors like you to fund our vital programs.
+                            100% of your public donation goes directly to the field.</p>
+
+                        <div class="card mt-2"
+                            style="background-color: var(--secondary-color); color: white; padding: 2rem;">
+                            <h3>Current Campaign: Clean Water Initiative</h3>
+                            <p class="text-light">Help us build 50 new wells in drought-affected regions before the end
+                                of the year.</p>
+
+                            <div
+                                style="display: flex; justify-content: space-between; margin-top: 1.5rem; font-weight: 600;">
+                                <span>$375,000 Raised</span>
+                                <span>Goal: $500,000</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-fill"></div>
+                            </div>
+                            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); text-align: right; margin: 0;">
+                                75% Funded</p>
+                        </div>
+
+                        <div class="mt-2">
+                            <h4 style="margin-bottom: 1rem;">Ways to give</h4>
+                            <ul style="list-style: none;">
+                                <li style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                    <i data-lucide="credit-card" style="color: var(--primary-color);"></i>
+                                    <span>Credit / Debit Card</span>
+                                </li>
+                                <li style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                    <i data-lucide="smartphone" style="color: var(--primary-color);"></i>
+                                    <span>Mobile Money / PayPal</span>
+                                </li>
+                                <li style="display: flex; align-items: center; gap: 1rem;">
+                                    <i data-lucide="building" style="color: var(--primary-color);"></i>
+                                    <span>Bank Transfer</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Donation Form UI -->
+                    <div class="card animate-on-scroll" style="box-shadow: var(--shadow-lg);">
+                        <div class="card-body" style="padding: 2.5rem;">
+                            <h3 style="margin-bottom: 1.5rem; text-align: center;">Secure Donation</h3>
+
+                            <form onsubmit="event.preventDefault(); alert('Redirecting to secure payment gateway...');">
+                                <div class="donation-type">
+                                    <button type="button" class="type-btn active">One Time</button>
+                                    <button type="button" class="type-btn">Monthly</button>
+                                </div>
+
+                                <label style="display: block; margin-bottom: 0.75rem; font-weight: 500;">Select
+                                    Amount</label>
+                                <div class="donation-amount-grid">
+                                    <div class="amount-btn">$25</div>
+                                    <div class="amount-btn active">$50</div>
+                                    <div class="amount-btn">$100</div>
+                                    <div class="amount-btn">$250</div>
+                                </div>
+
+                                <div style="margin-bottom: 1.5rem;">
+                                    <div style="position: relative;">
+                                        <span
+                                            style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-weight: 500;">$</span>
+                                        <input type="number" class="form-control" placeholder="Other Amount"
+                                            style="padding-left: 2rem;">
+                                    </div>
+                                </div>
+
+                                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 2rem 0;">
+
+                                <h4 style="margin-bottom: 1rem; font-size: 1.1rem;">Your Information</h4>
+
+                                <div
+                                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                    <input type="text" class="form-control" placeholder="First Name" required>
+                                    <input type="text" class="form-control" placeholder="Last Name" required>
+                                </div>
+
+                                <input type="email" class="form-control" placeholder="Email Address" required
+                                    style="margin-bottom: 1rem;">
+
+                                <div
+                                    style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 2rem; margin-top: 1rem;">
+                                    <input type="checkbox" id="cover-fee" checked style="margin-top: 5px;">
+                                    <label for="cover-fee" style="font-size: 0.9rem; color: var(--text-muted);">
+                                        I would like to cover the processing fee so 100% of my donation goes to the
+                                        foundation.
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-lg"
+                                    style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 0.5rem;">
+                                    <i data-lucide="lock" style="width: 18px; height: 18px;"></i> Donate Securely
+                                </button>
+
+                                <p
+                                    style="font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 1rem; margin-bottom: 0;">
+                                    All donations are encrypted and processed securely. You will receive a
+                                    tax-deductible receipt automatically via email.</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo text-white mb-1" style="color: white !important;">
+                        <span class="logo-icon"><i data-lucide="heart-handshake"></i></span>
+                        AllWise<span class="logo-highlight" style="color: var(--primary-light);">Foundation</span>
+                    </a>
+                    <p>Dedicated to supporting vulnerable communities and empowering the next generation across the
+                        globe.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+                    </div>
+                </div>
+                <!-- Other footer columns omitted for brevity in template, can be added via JS or PHP in a real app, keeping it here for static site completeness -->
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="programs.html">Our Programs</a></li>
+                        <li><a href="events.html">Upcoming Events</a></li>
+                        <li><a href="blog.html">News & Stories</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Get Involved</h4>
+                    <ul class="footer-links">
+                        <li><a href="donate.html">Donate Now</a></li>
+                        <li><a href="get-involved.html">Become a Volunteer</a></li>
+                        <li><a href="get-involved.html">Partner With Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-links">
+                        <li style="display: flex; gap: 10px; color: rgba(255,255,255,0.7); margin-bottom: 1rem;">
+                            <i data-lucide="map-pin" style="width: 20px; flex-shrink: 0;"></i>
+                            123 Hope Street, Charity City, NY 10001
+                        </li>
+                        <li style="display: flex; gap: 10px; color: rgba(255,255,255,0.7); margin-bottom: 1rem;">
+                            <i data-lucide="phone" style="width: 20px; flex-shrink: 0;"></i>
+                            +256 702138799
+                        </li>
+                        <li style="display: flex; gap: 10px; color: rgba(255,255,255,0.7);">
+                            <i data-lucide="mail" style="width: 20px; flex-shrink: 0;"></i>
+                            hello@hopefoundation.org
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AllWise Foundation. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Simple script for donation toggle
+        document.querySelectorAll('.amount-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.type-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
