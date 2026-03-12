@@ -24,6 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Logout Logic
+    const logoutBtn = document.querySelector('.logout-link');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Logging out of Admin Dashboard...');
+            window.location.href = '../index.html';
+        });
+    }
+
     // Tab Navigation Logic
     const navItems = document.querySelectorAll('.nav-item');
     const tabPanes = document.querySelectorAll('.tab-pane');
