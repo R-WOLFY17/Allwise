@@ -809,6 +809,10 @@ section {
     border-radius: 50%;
     transition: all var(--transition-fast);
 }
+.social-icons i{
+    color: white;
+    font-size: 20px;
+}
 
 .social-link:hover {
     background-color: var(--primary-color);
@@ -833,4 +837,5 @@ section {
     .footer-grid {
         grid-template-columns: 1fr;
     }
+
 }
