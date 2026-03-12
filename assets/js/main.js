@@ -96,3 +96,28 @@ const observeElements = (selector, className = 'visible') => {
 document.addEventListener('DOMContentLoaded', () => {
     observeElements('.animate-on-scroll');
 });
+
+// --- ADMIN DASHBOARD LOCAL STORAGE SYNC ---
+// This checks if the user has saved data in the Admin Dashboard
+// and overwrites the default HTML content if they have.
+document.addEventListener('DOMContentLoaded', () => {
+    const homeDataJSON = localStorage.getItem('awf_homeData');
+    if(homeDataJSON) {
+        try {
+            const homeData = JSON.parse(homeDataJSON);
+            
+            // Home Page Updates
+            const heroHeadline = document.getElementById('live-hero-headline');
+            if (heroHeadline && homeData.headline) heroHeadline.innerText = homeData.headline;
+
+            const heroSubtitle = document.getElementById('live-hero-subtitle');
+            if (heroSubtitle && homeData.subtitle) heroSubtitle.innerText = homeData.subtitle;
+
+            const statsChildren = document.getElementById('live-stats-children');
+            if (statsChildren && homeData.statsChildren) statsChildren.innerText = homeData.statsChildren;
+
+        } catch (e) {
+            console.error("Error parsing Admin data from localStorage", e);
+        }
+    }
+});

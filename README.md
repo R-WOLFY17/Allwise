@@ -28,9 +28,10 @@ The AllWise Foundation website is a modern, responsive static website designed t
 
 ## Admin Dashboard (Frontend UI)
 A new professional frontend Admin Dashboard has been created to provide a visual interface for managing the website's content.
-- **Location**: `admin/index.html`
+- **Location**: `admin/index.html` (accessible via the lock icon in the main navigation bar)
 - **Features**: Includes a responsive sidebar, a dashboard overview with statistics, content management forms (for Home, About, and Programs), a drag-and-drop media upload previewer, an inquiry messages table, and global settings.
-- *Note*: Currently, this is a fully styled frontend UI template. It requires backend integration (e.g., PHP, Node.js, Firebase) to persistently save changes to the live site or database.
+- **Local Storage Functionality**: As a proof-of-concept, the dashboard uses the browser's `localStorage` to save changes (e.g., modifying the Homepage text). These saved changes are instantly reflected on the public public pages when loaded in the same browser.
+- *Note*: Currently, this is a fully styled frontend UI template. It requires backend integration (e.g., PHP, Node.js, Firebase) to persistently save changes to a database so they are globally visible to all internet users.
 
 ## Getting Started
 To view or work on this project locally:
