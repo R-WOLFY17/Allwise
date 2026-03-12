@@ -22,9 +22,15 @@ The AllWise Foundation website is a modern, responsive static website designed t
 - **Lucide Icons**: Used throughout the site for lightweight, consistent iconography.
 
 ## Design Highlights
-- **Responsive Navigation**: Mobile-friendly hamburger menu.
+- **Responsive Navigation**: Mobile-friendly hamburger menu featuring a glassy, sliding side-panel design.
 - **Modern Aesthetics**: Clean typography, card-based layouts, and smooth CSS transitions/animations (`animate-on-scroll`).
 - **Consistent Footers & Headers**: Ensures easy navigation across all pages.
+
+## Admin Dashboard (Frontend UI)
+A new professional frontend Admin Dashboard has been created to provide a visual interface for managing the website's content.
+- **Location**: `admin/index.html`
+- **Features**: Includes a responsive sidebar, a dashboard overview with statistics, content management forms (for Home, About, and Programs), a drag-and-drop media upload previewer, an inquiry messages table, and global settings.
+- *Note*: Currently, this is a fully styled frontend UI template. It requires backend integration (e.g., PHP, Node.js, Firebase) to persistently save changes to the live site or database.
 
 ## Getting Started
 To view or work on this project locally:
