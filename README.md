@@ -34,7 +34,7 @@ To view or work on this project locally:
 3. No build steps or local servers are required for basic viewing, though running a simple local server (like `python -m http.server` or via a VS Code extension like Live Server) is recommended for best results when editing.
 
 ## Contact Information
-- **Email**: allwisefoundation@gmail.com
+- **Email**: allwisefoundation1@gmail.com
 - **Phone**: +256 702138799
 - **Address**: Buikwe Town, Buikwe District, Uganda
 
