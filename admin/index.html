@@ -46,6 +46,7 @@
         <main class="main-content">
             <header class="top-header">
                 <div class="header-search">
+                    <button class="mobile-nav-toggle"><i data-lucide="menu"></i></button>
                     <i data-lucide="search"></i>
                     <input type="text" placeholder="Search...">
                 </div>
@@ -134,50 +135,50 @@
 
                     <div class="card form-card">
                         <h2>Homepage Editor</h2>
-                        <form class="admin-form">
+                        <form class="admin-form" id="home-form">
                             <div class="form-group">
                                 <label>Hero Headline</label>
-                                <input type="text" class="form-control" value="Empowering Communities Global">
+                                <input type="text" id="admin-hero-headline" class="form-control" value="Empowering Communities Global">
                             </div>
                             <div class="form-group">
                                 <label>Hero Subtitle</label>
-                                <textarea class="form-control" rows="3">Join us in making a lasting impact through education, healthcare, and sustainable development across vulnerable regions.</textarea>
+                                <textarea id="admin-hero-subtitle" class="form-control" rows="3">Join us in making a lasting impact through education, healthcare, and sustainable development across vulnerable regions.</textarea>
                             </div>
                             <div class="form-group">
                                 <label>Stats Section: Children Helped target</label>
-                                <input type="text" class="form-control" value="50,000+">
+                                <input type="text" id="admin-stats-children" class="form-control" value="50,000+">
                             </div>
-                            <button type="button" class="btn btn-primary" onclick="alert('Homepage Changes Mock Saved!')">Save Homepage</button>
+                            <button type="submit" class="btn btn-primary">Save Homepage</button>
                         </form>
                     </div>
 
                     <div class="card form-card mt-2">
                         <h2>About Us Editor</h2>
-                        <form class="admin-form">
+                        <form class="admin-form" id="about-form">
                             <div class="form-group">
                                 <label>About Introduction Text</label>
-                                <textarea class="form-control" rows="4">AllWise Foundation started with a simple belief: every child deserves a chance. Based in Buikwe, Uganda, we work tirelessly...</textarea>
+                                <textarea id="admin-about-intro" class="form-control" rows="4">AllWise Foundation started with a simple belief: every child deserves a chance. Based in Buikwe, Uganda, we work tirelessly to create long-term solutions...</textarea>
                             </div>
                             <div class="form-group">
                                 <label>Mission Statement</label>
-                                <textarea class="form-control" rows="3">Our mission is to create sustainable opportunities...</textarea>
+                                <textarea id="admin-about-mission" class="form-control" rows="3">Our mission is to create sustainable opportunities for the most vulnerable people.</textarea>
                             </div>
-                            <button type="button" class="btn btn-primary" onclick="alert('About Changes Mock Saved!')">Save About</button>
+                            <button type="submit" class="btn btn-primary">Save About</button>
                         </form>
                     </div>
 
                     <div class="card form-card mt-2">
                         <h2>Programs Editor</h2>
-                        <form class="admin-form">
+                        <form class="admin-form" id="programs-form">
                             <div class="form-group">
                                 <label>Program 1 Title</label>
-                                <input type="text" class="form-control" value="Education for All">
+                                <input type="text" id="admin-program-1-title" class="form-control" value="School Building Initiative">
                             </div>
                             <div class="form-group">
                                 <label>Program 1 Description</label>
-                                <textarea class="form-control" rows="2">Building schools and providing resources...</textarea>
+                                <textarea id="admin-program-1-desc" class="form-control" rows="2">Providing safe and equipped learning environments for underprivileged children in rural areas.</textarea>
                             </div>
-                            <button type="button" class="btn btn-primary" onclick="alert('Programs Changes Mock Saved!')">Save Programs</button>
+                            <button type="submit" class="btn btn-primary">Save Programs</button>
                         </form>
                     </div>
                 </section>
@@ -253,31 +254,31 @@
 
                     <div class="card form-card">
                         <h2>Contact Information Configuration</h2>
-                        <form class="admin-form">
+                        <form class="admin-form" id="settings-form">
                             <div class="form-group">
                                 <label>Primary Email (receives forms)</label>
-                                <input type="email" class="form-control" value="allwisefoundation1@gmail.com">
+                                <input type="email" id="admin-settings-email" class="form-control" value="allwisefoundation1@gmail.com">
                             </div>
                             <div class="form-group">
                                 <label>Physical Address (Footer)</label>
-                                <input type="text" class="form-control" value="Buikwe Town, Buikwe District, Uganda">
+                                <input type="text" id="admin-settings-address" class="form-control" value="Buikwe Town, Buikwe District, Uganda">
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input type="text" class="form-control" value="+256 702138799">
+                                <input type="text" id="admin-settings-phone" class="form-control" value="+256 702138799">
                             </div>
 
                             <h2 class="mt-2">Social Links</h2>
                             <div class="form-group">
                                 <label>Facebook URL</label>
-                                <input type="url" class="form-control" value="https://facebook.com/allwisefoundation">
+                                <input type="url" id="admin-settings-facebook" class="form-control" value="https://facebook.com/allwisefoundation">
                             </div>
                             <div class="form-group">
                                 <label>Tiktok URL</label>
-                                <input type="url" class="form-control" value="https://tiktok.com/@allwisefoundation">
+                                <input type="url" id="admin-settings-tiktok" class="form-control" value="https://tiktok.com/@allwisefoundation">
                             </div>
                             
-                            <button type="button" class="btn btn-primary mt-1" onclick="alert('Settings Mock Saved!')">Save Settings</button>
+                            <button type="submit" class="btn btn-primary mt-1">Save Settings</button>
                         </form>
                     </div>
                 </section>
