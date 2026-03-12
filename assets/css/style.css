@@ -809,10 +809,7 @@ section {
     border-radius: 50%;
     transition: all var(--transition-fast);
 }
-.social-icons i{
-    color: white;
-    font-size: 18px;
-}
+ 
 
 .social-link:hover {
     background-color: var(--primary-color);
@@ -839,5 +836,6 @@ section {
     }
 
 }
+
 
 
