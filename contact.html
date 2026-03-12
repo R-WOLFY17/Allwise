@@ -146,22 +146,23 @@
                         <div class="card-body" style="padding: 2.5rem;">
                             <h3 style="margin-bottom: 1.5rem;">Send a Message</h3>
 
-                            <form action="https://formsubmit.co/2c1e2d7c6e48fc5a481e8a48213c8b97" method="POST">
+                            <form id="contact-form">
                                 <div
                                     style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                                    <input type="text" class="form-control" placeholder="First Name" required>
-                                    <input type="text" class="form-control" placeholder="Last Name" required>
+                                    <input type="text" id="contact-fname" class="form-control" placeholder="First Name" required>
+                                    <input type="text" id="contact-lname" class="form-control" placeholder="Last Name" required>
                                 </div>
 
-                                <input type="email" class="form-control" placeholder="Email Address" required
+                                <input type="email" id="contact-email" class="form-control" placeholder="Email Address" required
                                     style="margin-bottom: 1rem;">
-                                <input type="text" class="form-control" placeholder="Subject" required
+                                <input type="text" id="contact-subject" class="form-control" placeholder="Subject" required
                                     style="margin-bottom: 1rem;">
 
-                                <textarea class="form-control" rows="6" placeholder="Your Message..." required
+                                <textarea id="contact-message" class="form-control" rows="6" placeholder="Your Message..." required
                                     style="margin-bottom: 1.5rem; resize: vertical;"></textarea>
 
                                 <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                                <p id="contact-success" class="text-success" style="display: none; margin-top: 1rem; text-align: center;">Message sent successfully!</p>
                             </form>
                         </div>
                     </div>

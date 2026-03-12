@@ -171,4 +171,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    // 3. CONTACT FORM INTERCEPTOR
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const messageObj = {
+                id: Date.now(),
+                firstName: document.getElementById('contact-fname').value,
+                lastName: document.getElementById('contact-lname').value,
+                email: document.getElementById('contact-email').value,
+                subject: document.getElementById('contact-subject').value,
+                message: document.getElementById('contact-message').value,
+                date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+            };
+
+            let messages = JSON.parse(localStorage.getItem('awf_messages')) || [];
+            messages.unshift(messageObj); // Add to beginning
+            localStorage.setItem('awf_messages', JSON.stringify(messages));
+
+            // Show success styling
+            document.getElementById('contact-success').style.display = 'block';
+            contactForm.reset();
+            
+            setTimeout(() => {
+                document.getElementById('contact-success').style.display = 'none';
+            }, 5000);
+        });
+    }
 });

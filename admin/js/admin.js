@@ -144,6 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         loadGalleryImages();
+        loadMessages();
+        updateOverviewStats();
     }
 
     // Call load on init
@@ -174,10 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- GALLERY / MEDIA UPLOAD LOGIC ---
-    const dropZone = document.getElementById('drop-zone');
-    const fileInput = document.getElementById('file-input');
-    const previewGrid = document.getElementById('preview-grid');
+
 
     // Drag and Drop Events
     if (dropZone) {
@@ -287,5 +286,81 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('awf_gallery_images', JSON.stringify(galleryImages));
             loadGalleryImages();
         }
+    }
+
+    // --- MESSAGES LOGIC ---
+    function loadMessages() {
+        const messagesTableBody = document.querySelector('#messages tbody');
+        if (!messagesTableBody) return;
+
+        let messages = JSON.parse(localStorage.getItem('awf_messages')) || [];
+        
+        // Update badge count
+        const badge = document.querySelector('[data-target="messages"] .badge');
+        if (badge) badge.innerText = messages.length;
+
+        // Populate table
+        if (messages.length === 0) {
+            messagesTableBody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No messages found.</td></tr>';
+            return;
+        }
+
+        messagesTableBody.innerHTML = '';
+        messages.forEach((msg, index) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${msg.firstName} ${msg.lastName}</td>
+                <td><a href="mailto:${msg.email}">${msg.email}</a></td>
+                <td>${msg.subject}</td>
+                <td>${msg.date}</td>
+                <td>
+                    <button class="btn-sm btn-outline view-msg-btn" data-index="${index}">View</button>
+                    <button class="btn-sm btn-outline text-primary delete-msg-btn" data-index="${index}" style="border-color: var(--primary-color);">Delete</button>
+                </td>
+            `;
+            messagesTableBody.appendChild(tr);
+        });
+
+        // Event listeners for view and delete
+        document.querySelectorAll('.view-msg-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const idx = this.getAttribute('data-index');
+                const msg = messages[idx];
+                alert(`Message from ${msg.firstName} ${msg.lastName} (${msg.email}):\n\nSubject: ${msg.subject}\n\n${msg.message}`);
+            });
+        });
+
+        document.querySelectorAll('.delete-msg-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if(confirm('Delete this message?')) {
+                    const idx = this.getAttribute('data-index');
+                    messages.splice(idx, 1);
+                    localStorage.setItem('awf_messages', JSON.stringify(messages));
+                    loadMessages();
+                }
+            });
+        });
+    }
+
+    // --- OVERVIEW STATS UPDATE ---
+    function updateOverviewStats() {
+        const siteDataJSON = localStorage.getItem('awf_siteData');
+        if (siteDataJSON) {
+            const siteData = JSON.parse(siteDataJSON);
+            
+            // Map the targeted input IDs to the elements we want to update in the Overview tab
+            const fundsEl = document.querySelector('.stat-card:nth-child(1) .stat-number');
+            if (fundsEl && siteData['stats-funds']) fundsEl.innerText = siteData['stats-funds'];
+            
+            const volsEl = document.querySelector('.stat-card:nth-child(2) .stat-number');
+            if (volsEl && siteData['stats-communities']) volsEl.innerText = siteData['stats-communities'];
+            
+            const projsEl = document.querySelector('.stat-card:nth-child(4) .stat-number');
+            if (projsEl && siteData['stats-projects']) projsEl.innerText = siteData['stats-projects'];
+        }
+        
+        let messages = JSON.parse(localStorage.getItem('awf_messages')) || [];
+        const queriesEl = document.querySelector('.stat-card:nth-child(3) .stat-number');
+        if (queriesEl) queriesEl.innerText = messages.length;
     }
 });
