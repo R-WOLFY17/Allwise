@@ -101,23 +101,74 @@ document.addEventListener('DOMContentLoaded', () => {
 // This checks if the user has saved data in the Admin Dashboard
 // and overwrites the default HTML content if they have.
 document.addEventListener('DOMContentLoaded', () => {
-    const homeDataJSON = localStorage.getItem('awf_homeData');
-    if(homeDataJSON) {
+    // 1. TEXT AND LINKS SYNC
+    const siteDataJSON = localStorage.getItem('awf_siteData');
+    if (siteDataJSON) {
         try {
-            const homeData = JSON.parse(homeDataJSON);
+            const siteData = JSON.parse(siteDataJSON);
             
-            // Home Page Updates
-            const heroHeadline = document.getElementById('live-hero-headline');
-            if (heroHeadline && homeData.headline) heroHeadline.innerText = homeData.headline;
+            // Loop through all saved keys
+            for (const key in siteData) {
+                const liveId = 'live-' + key;
+                const el = document.getElementById(liveId);
+                
+                if (el) {
+                    const tagName = el.tagName.toLowerCase();
+                    const value = siteData[key];
 
-            const heroSubtitle = document.getElementById('live-hero-subtitle');
-            if (heroSubtitle && homeData.subtitle) heroSubtitle.innerText = homeData.subtitle;
-
-            const statsChildren = document.getElementById('live-stats-children');
-            if (statsChildren && homeData.statsChildren) statsChildren.innerText = homeData.statsChildren;
-
+                    // Determine how to apply the value based on tag type
+                    if (tagName === 'a' && value.startsWith('http')) {
+                        el.href = value;
+                    } else if (tagName === 'a' && value.includes('@')) {
+                        el.href = 'mailto:' + value;
+                        el.innerText = value;
+                    } else if (tagName === 'img') {
+                        el.src = value;
+                    } else {
+                        // Default text replacement
+                        el.innerText = value;
+                    }
+                }
+            }
         } catch (e) {
             console.error("Error parsing Admin data from localStorage", e);
+        }
+    }
+
+    // 2. GALLERY IMAGES SYNC
+    const galleryGrid = document.querySelector('.gallery-grid');
+    if (galleryGrid) {
+        const galleryImagesJSON = localStorage.getItem('awf_gallery_images');
+        if (galleryImagesJSON) {
+            try {
+                const galleryImages = JSON.parse(galleryImagesJSON);
+                
+                // If there are custom images saved, clear out the dummy content
+                if (galleryImages && galleryImages.length > 0) {
+                    galleryGrid.innerHTML = ''; // Hide defaults
+                    
+                    galleryImages.forEach(imgBase64 => {
+                        const itemHtml = `
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="${imgBase64}" alt="Gallery Image">
+                                <div class="gallery-overlay">
+                                    <h4>Community Impact</h4>
+                                    <p style="font-size: 0.85rem; margin-bottom: 0;">Making a difference together</p>
+                                </div>
+                            </div>
+                        `;
+                        // Using insertAdjacentHTML is safer than += for larger DOM nodes, though innerHTML is fine here
+                        galleryGrid.insertAdjacentHTML('beforeend', itemHtml);
+                    });
+                    
+                    // Re-run the observer for new elements so they fade in
+                    if (typeof observeElements === 'function') {
+                        observeElements('.gallery-item.animate-on-scroll');
+                    }
+                }
+            } catch (e) {
+                console.error("Error parsing Gallery data from localStorage", e);
+            }
         }
     }
 });
