@@ -135,6 +135,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // 1.5 SPECIFIC IMAGES SYNC
+    const specificImages = [
+        'img-home-hero', 'img-home-about', 'img-about-main',
+        'img-prog1', 'img-prog2', 'img-prog3', 'img-prog4'
+    ];
+
+    specificImages.forEach(imgKey => {
+        const storedImg = localStorage.getItem('awf_admin-' + imgKey);
+        if (storedImg) {
+            const imgEl = document.getElementById('live-' + imgKey);
+            if (imgEl) {
+                imgEl.src = storedImg;
+            }
+        }
+    });
+
     // 2. GALLERY IMAGES SYNC
     const galleryGrid = document.querySelector('.gallery-grid');
     if (galleryGrid) {

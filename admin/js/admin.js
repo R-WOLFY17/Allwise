@@ -146,6 +146,31 @@ document.addEventListener('DOMContentLoaded', () => {
         loadGalleryImages();
         loadMessages();
         updateOverviewStats();
+
+        // 1.5 Load Specific Images Let's just create a helper for this
+        const specificImages = [
+            'admin-img-home-hero', 'admin-img-home-about', 'admin-img-about-main',
+            'admin-img-prog1', 'admin-img-prog2', 'admin-img-prog3', 'admin-img-prog4'
+        ];
+
+        specificImages.forEach(id => {
+            const storedImg = localStorage.getItem('awf_' + id);
+            const inputEl = document.getElementById(id);
+            if (storedImg && inputEl) {
+                 // We can't set a file input value for security reasons,
+                 // but we can add a small UI hint that an image is saved.
+                 let hint = inputEl.parentElement.querySelector('.saved-hint');
+                 if (!hint) {
+                     hint = document.createElement('span');
+                     hint.className = 'saved-hint text-success';
+                     hint.style.fontSize = '0.75rem';
+                     hint.style.display = 'block';
+                     hint.style.marginTop = '0.25rem';
+                     hint.innerText = '✓ Image saved';
+                     inputEl.parentElement.appendChild(hint);
+                 }
+            }
+        });
     }
 
     // Call load on init
@@ -175,6 +200,52 @@ document.addEventListener('DOMContentLoaded', () => {
             showSaveSuccess(this.querySelector('button[type="submit"]'));
         });
     });
+
+    // --- SPECIFIC IMAGE UPLOADS ---
+    const specificMediaForm = document.getElementById('specific-media-form');
+    if (specificMediaForm) {
+        specificMediaForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const imgInputs = [
+                'admin-img-home-hero', 'admin-img-home-about', 'admin-img-about-main',
+                'admin-img-prog1', 'admin-img-prog2', 'admin-img-prog3', 'admin-img-prog4'
+            ];
+
+            let promises = imgInputs.map(id => {
+                return new Promise((resolve) => {
+                    const input = document.getElementById(id);
+                    if (input && input.files && input.files[0]) {
+                        const file = input.files[0];
+                        if (file.size > 2 * 1024 * 1024) {
+                            alert(`File ${file.name} is too large. Max 2MB.`);
+                            resolve(); // resolve anyway to not block others
+                            return;
+                        }
+
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            try {
+                                localStorage.setItem('awf_' + id, e.target.result);
+                                resolve();
+                            } catch (err) {
+                                alert("Storage limit reached! Cannot save more images.");
+                                resolve();
+                            }
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        resolve(); // no file selected
+                    }
+                });
+            });
+
+            Promise.all(promises).then(() => {
+                showSaveSuccess(this.querySelector('button[type="submit"]'));
+                loadAdminData(); // Refresh UI hints
+            });
+        });
+    }
 
 
 

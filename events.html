@@ -50,8 +50,8 @@
         <section class="page-header"
             style="background: linear-gradient(rgba(29, 53, 87, 0.85), rgba(29, 53, 87, 0.85)), url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3') center/cover; padding: 6rem 0 4rem; text-align: center;">
             <div class="container">
-                <h1 class="text-white animate-on-scroll">Upcoming Events</h1>
-                <p class="text-light animate-on-scroll" style="font-size: 1.25rem; max-width: 600px; margin: 0 auto;">
+                <h1 class="text-white animate-on-scroll" id="live-events-page-title">Upcoming Events</h1>
+                <p class="text-light animate-on-scroll" id="live-events-page-desc" style="font-size: 1.25rem; max-width: 600px; margin: 0 auto;">
                     Join us in our upcoming fundraisers, community gatherings, and awareness campaigns.</p>
             </div>
         </section>
@@ -62,10 +62,10 @@
                 <div class="card animate-on-scroll bg-secondary text-white"
                     style="border: none; display: flex; flex-direction: row; align-items: stretch; overflow: hidden; box-shadow: var(--shadow-lg);">
                     <div style="flex: 1; padding: 4rem;">
-                        <span class="badge badge-warning"
+                        <span class="badge badge-warning" id="live-events-featured-badge"
                             style="position: static; display: inline-block; margin-bottom: 1.5rem;">Annual Gala</span>
-                        <h2 class="text-white">Hope Foundation Annual Gala 2026</h2>
-                        <p class="text-light text-white mb-2" style="font-size: 1.1rem;">Join us for an elegant evening
+                        <h2 class="text-white" id="live-events-featured-title">Hope Foundation Annual Gala 2026</h2>
+                        <p class="text-light text-white mb-2" id="live-events-featured-desc" style="font-size: 1.1rem;">Join us for an elegant evening
                             celebrating a year of transformative impact, featuring keynote speakers, a silent auction,
                             and dinner.</p>
 
@@ -102,7 +102,7 @@
         <!-- Events List -->
         <section class="events-list">
             <div class="container">
-                <h2 class="animate-on-scroll mb-2 text-center">More Upcoming Events</h2>
+                <h2 class="animate-on-scroll mb-2 text-center" id="live-events-list-title">More Upcoming Events</h2>
 
                 <div class="cards-grid">
                     <!-- Event 1 -->
