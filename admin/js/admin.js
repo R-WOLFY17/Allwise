@@ -115,45 +115,177 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LOCAL STORAGE FUNCTIONALITY ---
+    // --- COMPREHENSIVE LOCAL STORAGE FUNCTIONALITY ---
     
+    // Helper to briefly show save success
+    function showSaveSuccess(btn) {
+        const originalText = btn.innerText;
+        btn.innerText = "Saved!";
+        btn.style.backgroundColor = "var(--success)";
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.backgroundColor = "";
+        }, 2000);
+    }
+
     // 1. Load existing data on page load
     function loadAdminData() {
-        const homeData = JSON.parse(localStorage.getItem('awf_homeData'));
-        if (homeData) {
-            if(document.getElementById('admin-hero-headline')) document.getElementById('admin-hero-headline').value = homeData.headline || "";
-            if(document.getElementById('admin-hero-subtitle')) document.getElementById('admin-hero-subtitle').value = homeData.subtitle || "";
-            if(document.getElementById('admin-stats-children')) document.getElementById('admin-stats-children').value = homeData.statsChildren || "";
+        const siteDataJSON = localStorage.getItem('awf_siteData');
+        if (siteDataJSON) {
+            const siteData = JSON.parse(siteDataJSON);
+            
+            // Populate all inputs if data exists
+            for (const key in siteData) {
+                const el = document.getElementById(`admin-${key}`);
+                if (el) {
+                    el.value = siteData[key];
+                }
+            }
         }
+        
+        loadGalleryImages();
     }
 
     // Call load on init
     loadAdminData();
 
-    // 2. Handle Form Submissions (Save to LocalStorage)
-    const homeForm = document.getElementById('home-form');
-    if (homeForm) {
-        homeForm.addEventListener('submit', function(e) {
+    // 2. Comprehensive Save Function
+    function saveAllData() {
+        // We select EVERY input/textarea that starts with id="admin-"
+        const allInputs = document.querySelectorAll('input[id^="admin-"], textarea[id^="admin-"]');
+        const siteData = {};
+        
+        allInputs.forEach(input => {
+            // Strip the "admin-" prefix to use as the key
+            const key = input.id.replace('admin-', '');
+            siteData[key] = input.value;
+        });
+
+        localStorage.setItem('awf_siteData', JSON.stringify(siteData));
+    }
+
+    // Attach Save Listeners to ALL forms
+    const forms = document.querySelectorAll('.admin-form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-            const data = {
-                headline: document.getElementById('admin-hero-headline').value,
-                subtitle: document.getElementById('admin-hero-subtitle').value,
-                statsChildren: document.getElementById('admin-stats-children').value
-            };
-            localStorage.setItem('awf_homeData', JSON.stringify(data));
-            
-            // Visual feedback
-            const btn = this.querySelector('button');
-            const originalText = btn.innerText;
-            btn.innerText = "Saved!";
-            btn.style.backgroundColor = "var(--success)";
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.backgroundColor = "";
-            }, 2000);
+            saveAllData();
+            showSaveSuccess(this.querySelector('button[type="submit"]'));
+        });
+    });
+
+    // --- GALLERY / MEDIA UPLOAD LOGIC ---
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const previewGrid = document.getElementById('preview-grid');
+
+    // Drag and Drop Events
+    if (dropZone) {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleGalleryUploads(files);
+        }, false);
+    }
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            handleGalleryUploads(this.files);
         });
     }
 
-    // (Add forms for About, Programs, etc similarly in real environment. 
-    // We demonstrate Home functionality as proof-of-concept for the public interface)
+    function handleGalleryUploads(files) {
+        let galleryImages = JSON.parse(localStorage.getItem('awf_gallery_images')) || [];
+        
+        Array.from(files).forEach(file => {
+            if (file.type.startsWith('image/')) {
+                // Approximate check for 2MB limit
+                if (file.size > 2 * 1024 * 1024) {
+                    alert(`File ${file.name} is too large. Please keep images under 2MB for local storage.`);
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const base64Data = e.target.result;
+                    // Prepend new images
+                    galleryImages.unshift(base64Data);
+                    
+                    try {
+                        localStorage.setItem('awf_gallery_images', JSON.stringify(galleryImages));
+                        loadGalleryImages(); // re-render grid
+                    } catch (err) {
+                        alert("Storage limit reached! The browser cannot store any more large images without a backend database. Please delete some images first.");
+                        // Revert the array push
+                        galleryImages.shift();
+                    }
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert(`${file.name} is not an image file.`);
+            }
+        });
+    }
+
+    // Render Live Gallery Images
+    function loadGalleryImages() {
+        if (!previewGrid) return;
+        
+        previewGrid.innerHTML = '';
+        const galleryImages = JSON.parse(localStorage.getItem('awf_gallery_images')) || [];
+        
+        if (galleryImages.length === 0) {
+            previewGrid.innerHTML = '<p class="text-muted" style="grid-column: 1 / -1;">No live images currently uploaded.</p>';
+            return;
+        }
+
+        galleryImages.forEach((imgSrc, index) => {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'preview-item';
+            
+            imgContainer.innerHTML = `
+                <img src="${imgSrc}" alt="Gallery Preview">
+                <button class="delete-btn" data-index="${index}"><i data-lucide="trash-2"></i></button>
+            `;
+            
+            previewGrid.appendChild(imgContainer);
+        });
+        
+        lucide.createIcons();
+
+        // Attach delete listeners
+        const deleteBtns = previewGrid.querySelectorAll('.delete-btn');
+        deleteBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const indexToDelete = parseInt(this.getAttribute('data-index'));
+                deleteGalleryImage(indexToDelete);
+            });
+        });
+    }
+
+    function deleteGalleryImage(index) {
+        if (confirm("Are you sure you want to delete this live gallery image?")) {
+            let galleryImages = JSON.parse(localStorage.getItem('awf_gallery_images')) || [];
+            galleryImages.splice(index, 1);
+            localStorage.setItem('awf_gallery_images', JSON.stringify(galleryImages));
+            loadGalleryImages();
+        }
+    }
 });
