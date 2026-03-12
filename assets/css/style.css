@@ -314,19 +314,21 @@ section {
     .nav-menu {
         position: fixed;
         top: 70px;
-        left: -100%;
-        width: 100%;
+        right: -100%;
+        width: 300px;
+        max-width: 80vw;
         height: calc(100vh - 70px);
         background-color: var(--bg-main);
         flex-direction: column;
         justify-content: flex-start;
         padding-top: 2rem;
-        transition: left var(--transition-normal);
+        transition: right var(--transition-normal);
         z-index: 999;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     }
 
     .nav-menu.active {
-        left: 0;
+        right: 0;
     }
 
     .nav-list {
